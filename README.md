@@ -1,6 +1,7 @@
 # homesite
-
-![homesite](public/images/homesite3.png)
+<p align="center">
+  <img src="public/images/homeSite3.png">
+</p>
 
 ## Description
 Repository for my personal site's code.
