@@ -5,11 +5,16 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<style>
+			@font-face {
+				font-family: 'Arcade'; /*a name to be used later*/
+				src: url('/fonts/ARCADECLASSIC.TTF'); /*URL to font*/
+			}
+
 			body {
 				background-color: #000000;
 				margin: 0px;
 				overflow: hidden;
-				font-family:Monospace;
+				font-family:Arcade;
 				font-size:13px;
 				text-align:center;
 				font-weight: bold;
@@ -25,8 +30,8 @@
 				top: 25%; width: 100%;
 				padding: 5px;
 				z-index: 100;
-				font-family:Monospace;
-				font-size:18px;
+				font-family:Arcade;
+				font-size:28px;
 			}
 			#info2 {
 				color: #fff;
@@ -35,8 +40,8 @@
 				top: 30%; width: 100%;
 				padding: 5px;
 				z-index: 100;
-				font-family:Monospace;
-				font-size:16px;
+				font-family:Arcade;
+				font-size:32px;
 			}
 			#label {
 				color: rgb(255, 255, 255);
@@ -45,8 +50,8 @@
 				top: 45%; width: 100%;
 				padding: 5px;
 				z-index: 100;
-				font-family:Monospace;
-				font-size:12px;				
+				font-family:Arcade;
+				font-size:24px;				
 			}
 		</style>
 
@@ -67,14 +72,14 @@
 		<script src="javascripts/GlitchPass.js"></script>
 
 		<div id="label">
-			<label for="dotScreen">Glitch me wild:</label><input id="wildGlitch" type="checkbox" onchange="updateOptions()"/><br />
+			<label for="dotScreen">Glitch_me_wild:</label><input id="wildGlitch" type="checkbox" onchange="updateOptions()"/><br />
 		</div>
 		
 		<div id="info">
 			<a href="http://kikeramirez.net" target="_blank" rel="noopener">kikeramirez.net</a>
 		</div>
 		
-		<div id="info2"> Coming soon ... </div>
+		<div id="info2"> Coming__soon ... </div>
 
 		<script>
 
