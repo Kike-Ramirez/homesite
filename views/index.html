@@ -6,11 +6,50 @@
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<style>
 			body {
-				margin: 0px;
 				background-color: #000000;
+				margin: 0px;
 				overflow: hidden;
+				font-family:Monospace;
+				font-size:13px;
+				text-align:center;
+				font-weight: bold;
+				text-align:center;
+			}
+			a {
+				color:#e6810e;
+			}
+			#info {
+				color: #fff;
+				background-color: rgba(0, 0, 0, 0.5);
+				position: absolute;
+				top: 25%; width: 100%;
+				padding: 5px;
+				z-index: 100;
+				font-family:Monospace;
+				font-size:18px;
+			}
+			#info2 {
+				color: #fff;
+				background-color: rgba(0, 0, 0, 0.5);
+				position: absolute;
+				top: 30%; width: 100%;
+				padding: 5px;
+				z-index: 100;
+				font-family:Monospace;
+				font-size:16px;
+			}
+			#label {
+				color: rgb(255, 255, 255);
+				background-color: rgba(0, 0, 0, 0.5);
+				position: absolute;
+				top: 45%; width: 100%;
+				padding: 5px;
+				z-index: 100;
+				font-family:Monospace;
+				font-size:12px;				
 			}
 		</style>
+
 	</head>
 	<body>
 
@@ -19,19 +58,38 @@
 		<script src="javascripts/CopyShader.js"></script>
 		<script src="javascripts/DotScreenShader.js"></script>
 		<script src="javascripts/RGBShiftShader.js"></script>
+		<script src="javascripts/DigitalGlitch.js"></script>
 
 		<script src="javascripts/EffectComposer.js"></script>
 		<script src="javascripts/RenderPass.js"></script>
 		<script src="javascripts/ShaderPass.js"></script>
+		<script src="javascripts/MaskPass.js"></script>
+		<script src="javascripts/GlitchPass.js"></script>
 
+		<div id="label">
+			<label for="dotScreen">Glitch me wild:</label><input id="wildGlitch" type="checkbox" onchange="updateOptions()"/><br />
+		</div>
+		
+		<div id="info">
+			<a href="http://kikeramirez.net" target="_blank" rel="noopener">kikeramirez.net</a>
+		</div>
+		
+		<div id="info2"> Coming soon ... </div>
 
 		<script>
 
 			var camera, scene, renderer, composer;
 			var object, light;
 
+			var glitchPass;
+
 			init();
 			animate();
+
+			function updateOptions() {
+				var wildGlitch = document.getElementById('wildGlitch');
+				glitchPass.goWild=wildGlitch.checked;
+			}
 
 			function init() {
 
@@ -51,16 +109,17 @@
 				object = new THREE.Object3D();
 				scene.add( object );
 
-				var geometry = new THREE.SphereGeometry( 1, 4, 4 );
+				
 				var material = new THREE.MeshPhongMaterial( { color: 0xffffff, flatShading: true } );
 
-				for ( var i = 0; i < 100; i ++ ) {
+				for ( var i = 0; i < 300; i ++ ) {
 
+					var geometry = new THREE.SphereGeometry( 1, 1 + Math.random() * 19, 1 + Math.random() * 19 );
 					var mesh = new THREE.Mesh( geometry, material );
 					mesh.position.set( Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5 ).normalize();
-					mesh.position.multiplyScalar( Math.random() * 400 );
+					mesh.position.multiplyScalar( Math.random() * 1000 );
 					mesh.rotation.set( Math.random() * 2, Math.random() * 2, Math.random() * 2 );
-					mesh.scale.x = mesh.scale.y = mesh.scale.z = Math.random() * 50;
+					mesh.scale.x = mesh.scale.y = mesh.scale.z = Math.random() * 40;
 					object.add( mesh );
 
 				}
@@ -80,14 +139,21 @@
 				effect.uniforms[ 'scale' ].value = 4;
 				composer.addPass( effect );
 
+
 				var effect = new THREE.ShaderPass( THREE.RGBShiftShader );
 				effect.uniforms[ 'amount' ].value = 0.0015;
-				effect.renderToScreen = true;
+				effect.renderToScreen = false;
 				composer.addPass( effect );
+
+				glitchPass = new THREE.GlitchPass();
+				glitchPass.renderToScreen = true;
+				composer.addPass( glitchPass );
 
 				//
 
 				window.addEventListener( 'resize', onWindowResize, false );
+
+				updateOptions();
 
 			}
 
@@ -105,8 +171,10 @@
 
 				requestAnimationFrame( animate );
 
-				object.rotation.x += 0.005;
-				object.rotation.y += 0.01;
+				var time = Date.now();
+
+				object.rotation.x += 0.002;
+				object.rotation.y += 0.003;
 
 				composer.render();
 
