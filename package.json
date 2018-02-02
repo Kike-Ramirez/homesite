@@ -1,6 +1,6 @@
 {
   "name": "homesite",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
@@ -13,5 +13,24 @@
     "jade": "~1.11.0",
     "morgan": "~1.9.0",
     "serve-favicon": "~2.4.5"
-  }
+  },
+  "description": "![homesite](public/images/homesite3.png)",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kike-Ramirez/homesite.git"
+  },
+  "keywords": [
+    "site",
+    "nodejs",
+    "threejs",
+    "kikeramirez"
+  ],
+  "author": "Kike Ramírez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Kike-Ramirez/homesite/issues"
+  },
+  "homepage": "https://github.com/Kike-Ramirez/homesite#readme"
 }
