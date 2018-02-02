@@ -1,6 +1,6 @@
 # homesite
 <p align="center">
-  <img src="public/images/homeSite3.png">
+  <img src="public/images/homeSite4.png">
 </p>
 
 ## Description
