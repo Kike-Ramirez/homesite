@@ -39,11 +39,11 @@ function init() {
     scene.add(grid);
     // model
     var loader = new THREE.FBXLoader();
-    loader.load('models/fbx/Samba Dancing.fbx', function (object) {
+    loader.load('3d/clockwork/Clockwork.fbx', function (object) {
         object.mixer = new THREE.AnimationMixer(object);
         mixers.push(object.mixer);
-        var action = object.mixer.clipAction(object.animations[0]);
-        action.play();
+        // var action = object.mixer.clipAction(object.animations[0]);
+        // action.play();
         object.traverse(function (child) {
             if (child.isMesh) {
                 child.castShadow = true;
