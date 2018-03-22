@@ -4,6 +4,7 @@
 		<title>kike.ramirez</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="google-site-verification" content="1AmaJTmqwD8BC_jBcjwJqodp4mZex-YPZhvJjwcsEDs" />
 		<style>
 			@font-face {
 				font-family: 'Aspergit'; /*a name to be used later*/
@@ -22,6 +23,7 @@
 			}
 			a {
 				color:#e6810e;
+				text-decoration: none;
 			}
 			#info {
 				color: #fff;
@@ -32,12 +34,33 @@
 				z-index: 100;
 				font-family:Aspergit;
 				font-size:24px;
+				text-decoration: none;
 			}
 			#info2 {
 				color: #fff;
 				background-color: rgba(0, 0, 0, 0.7);
 				position: absolute;
 				top: 35%; width: 100%;
+				padding: 5px;
+				z-index: 100;
+				font-family:Aspergit;
+				font-size:18px;
+			}
+			#info3 {
+				color: #fff;
+				background-color: rgba(0, 0, 0, 0.7);
+				position: absolute;
+				top: 55%; width: 100%;
+				padding: 5px;
+				z-index: 100;
+				font-family:Aspergit;
+				font-size:16px;
+			}
+			#info4 {
+				color: #fff;
+				background-color: rgba(0, 0, 0, 0.7);
+				position: absolute;
+				top: 65%; width: 100%;
 				padding: 5px;
 				z-index: 100;
 				font-family:Aspergit;
@@ -70,16 +93,30 @@
 		<script src="javascripts/ShaderPass.js"></script>
 		<script src="javascripts/MaskPass.js"></script>
 		<script src="javascripts/GlitchPass.js"></script>
-
-		<div id="label">
-			<label for="dotScreen">Wild the glichtness!</label><input id="wildGlitch" type="checkbox" onchange="updateOptions()"/><br />
-		</div>
 		
 		<div id="info">
 			<a href="http://kikeramirez.org" target="_blank" rel="noopener">kike.ramirez</a>
 		</div>
-		
-		<div id="info2"> opening ===> 19.02.2018 </div>
+
+		<div id="info2">
+			<a href="https://www.linkedin.com/in/enriqueramirezlopez/">
+				<img src="images/linkedin-40.png" alt="Linkedin Profile">
+			</a>
+			<a href="https://www.twitter.com/Eramirez_">
+				<img src="images/twitter-40.png" alt="Twitter Profile">
+			</a>
+			<a href="https://github.com/Kike-Ramirez">
+				<img src="images/github-40.png" alt="Github Repository">
+			</a>
+		</div>
+
+		<div id="info3">
+			<a href="mailto:info@kikeramirez.org">info@kikeramirez.org</a>
+		</div>
+
+		<div id="info4">
+			 ... under work ... 
+		</div>
 
 		<script>
 
@@ -421,8 +458,8 @@
 			animate();
 
 			function updateOptions() {
-				var wildGlitch = document.getElementById('wildGlitch');
-				glitchPass.goWild=wildGlitch.checked;
+				//var wildGlitch = document.getElementById('wildGlitch');
+				//glitchPass.goWild=wildGlitch.checked;
 			}
 
 			function init() {
