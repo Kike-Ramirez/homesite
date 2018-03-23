@@ -13,17 +13,23 @@ function setup() {
   cnv.parent('year_panel');
 
   // Create objects
-  for (var i=0; i<50; i++) {
-    bugs.push(new Year());
+  for (var i=1979; i<2019; i++) {
+    bugs.push(new Year(i));
   }
 }
 
 function draw() {
-  background(50, 89, 100);
+  background(0);
   for (var i=0; i<bugs.length; i++) {
     bugs[i].move();
     bugs[i].display();
   }
+}
+
+function updateSize() {
+  for (var i=0; i<bugs.length; i++) {
+    bugs[i].update();
+  }  
 }
 
 window.onload = function() {
@@ -33,6 +39,7 @@ window.onload = function() {
   divHeight = style.height;
   divWidth = style.width;
   resizeCanvas(int(divWidth), int(divHeight));
+  updateSize();
 
 }
 
@@ -44,21 +51,33 @@ window.onresize = function() {
   divHeight = style.height;
   divWidth = style.width;
   resizeCanvas(int(divWidth), int(divHeight));
+  updateSize();
 };
 
 // Year class
-function Year() {
-  this.x = random(width);
-  this.y = random(height);
-  this.diameter = random(10, 30);
+function Year(i_) {
+  this.x = 0;
+  this.y = (i_ - 1979) * (int(divHeight)/30);
   this.speed = 1;
+  this.year = i_;
 
   this.move = function() {
-    this.x += random(-this.speed, this.speed);
-    this.y += random(-this.speed, this.speed);
+
   };
 
+  this.update = function() {
+    this.x = 0;
+    this.y = (i_ - 1979) * (int(divHeight)/30);
+    this.width = int(divWidth)-1;
+    this.height = int(divHeight)/30;
+  }
+
   this.display = function() {
-    ellipse(this.x, this.y, this.diameter, this.diameter);
+    noFill();
+    stroke(255);
+    rect(this.x, this.y, this.width, this.height);
+    textAlign(CENTER,CENTER);
+    textSize(this.height * 0.8);
+    text(this.year, this.x,this.y, this.width, this.height);
   };
 }
