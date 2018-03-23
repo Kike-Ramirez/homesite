@@ -32,54 +32,55 @@ function updateSize() {
   }  
 }
 
-window.onload = function() {
+window.addEventListener("load", function(event) {
   element = document.getElementById('year_panel')
   style = window.getComputedStyle(element);
 
   divHeight = style.height;
   divWidth = style.width;
+
   resizeCanvas(int(divWidth), int(divHeight));
   updateSize();
+});
 
-}
 
-window.onresize = function() {
+window.addEventListener("resize", function(event) {
 
   element = document.getElementById('year_panel')
   style = window.getComputedStyle(element);
 
   divHeight = style.height;
   divWidth = style.width;
+
   resizeCanvas(int(divWidth), int(divHeight));
   updateSize();
-};
+
+});
 
 // Year class
 function Year(i_) {
   this.x = 0;
-  this.y = (i_ - 1979) * (int(divHeight)/30);
+  this.y = (i_ - 1979) * (int(divHeight)/30.0);
   this.speed = 1;
   this.year = i_;
+  this.width = int(divWidth)-1;
+  this.height = int(divHeight)/30.0;
+  this.size = this.height * 0.6;
 
   this.move = function() {
 
   };
 
   this.update = function() {
-    if (int(divHeight) > int(divWidth)) {
-      this.x = 0;
-      this.y = (i_ - 1979) * (int(divHeight)/30);
-      this.width = int(divWidth)-1;
-      this.height = int(divHeight)/30;
-    
-    }
-    else {
-      this.x = (i_ - 1979) * (int(divWidth)/30);
-      this.y = 0
-      this.width = int(divWidth)/30;
-      this.height = int(divHeight)-1;
-    
-    }
+
+    this.x = 0;
+    this.y = (i_ - 1979) * (int(divHeight)/30.0);
+    this.width = int(divWidth)-1;
+    this.height = int(divHeight)/30.0;
+    this.size = this.width * 0.3;
+
+    if (this.size > this.height * 0.7) this.size = this.height * 0.7;
+
   }
 
   this.display = function() {
@@ -87,7 +88,7 @@ function Year(i_) {
     stroke(255);
     rect(this.x, this.y, this.width, this.height);
     textAlign(CENTER,CENTER);
-    textSize(this.height * 0.8);
-    text(this.year, this.x,this.y, this.width, this.height);
+    textSize(this.size);
+    text(this.year, this.x, this.y, this.width, this.height);
   };
 }
