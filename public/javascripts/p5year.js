@@ -66,10 +66,20 @@ function Year(i_) {
   };
 
   this.update = function() {
-    this.x = 0;
-    this.y = (i_ - 1979) * (int(divHeight)/30);
-    this.width = int(divWidth)-1;
-    this.height = int(divHeight)/30;
+    if (int(divHeight) > int(divWidth)) {
+      this.x = 0;
+      this.y = (i_ - 1979) * (int(divHeight)/30);
+      this.width = int(divWidth)-1;
+      this.height = int(divHeight)/30;
+    
+    }
+    else {
+      this.x = (i_ - 1979) * (int(divWidth)/30);
+      this.y = 0
+      this.width = int(divWidth)/30;
+      this.height = int(divHeight)-1;
+    
+    }
   }
 
   this.display = function() {
