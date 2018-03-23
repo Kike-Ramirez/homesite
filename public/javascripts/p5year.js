@@ -4,6 +4,7 @@ var style = window.getComputedStyle(element);
 
 var divHeight = style.height;
 var divWidth = style.width;
+var pos = 0;
 
 function setup() {
 
@@ -30,6 +31,14 @@ function updateSize() {
   for (var i=0; i<bugs.length; i++) {
     bugs[i].update();
   }  
+}
+
+function mouseWheel(event) {
+  print(event.delta);
+  //move the square according to the vertical scroll amount
+  pos += event.delta;
+  //uncomment to block page scrolling
+  //return false;
 }
 
 window.onload = function() {
@@ -68,7 +77,7 @@ function Year(i_) {
   this.update = function() {
     if (int(divHeight) > int(divWidth)) {
       this.x = 0;
-      this.y = (i_ - 1979) * (int(divHeight)/30);
+      this.y = (i_ + pos - 1979) * (int(divHeight)/30);
       this.width = int(divWidth)-1;
       this.height = int(divHeight)/30;
     
