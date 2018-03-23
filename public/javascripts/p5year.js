@@ -1,8 +1,13 @@
 var bugs = []; // array of Jitter objects
+var element = document.getElementById('year_panel')
+var style = window.getComputedStyle(element);
+
+var divHeight = style.height;
+var divWidth = style.width;
 
 function setup() {
 
-  cnv = createCanvas(width, height);
+  cnv = createCanvas(int(divWidth), int(divHeight));
 
   // Move the canvas so it’s inside our <div id="year_panel">.
   cnv.parent('year_panel');
@@ -20,6 +25,26 @@ function draw() {
     bugs[i].display();
   }
 }
+
+window.onload = function() {
+  element = document.getElementById('year_panel')
+  style = window.getComputedStyle(element);
+
+  divHeight = style.height;
+  divWidth = style.width;
+  resizeCanvas(int(divWidth), int(divHeight));
+
+}
+
+window.onresize = function() {
+
+  element = document.getElementById('year_panel')
+  style = window.getComputedStyle(element);
+
+  divHeight = style.height;
+  divWidth = style.width;
+  resizeCanvas(int(divWidth), int(divHeight));
+};
 
 // Year class
 function Year() {
