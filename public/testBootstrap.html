@@ -32,21 +32,21 @@
   <div class="">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-2" id="year_panel"> 
+        <div class="col-1" style="padding:0" id="year_panel"> 
         </div>
-        <div class="col-md-10">
+        <div class="col-11">
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-12">
               <h1 class="" id="main_heading">Heading</h1>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-12">
               <p class="" id="main_paragraph">Paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-12">
               <ul class="" id="main_list">
                 <li>One</li>
                 <li>Two</li>
@@ -55,10 +55,10 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12" id="mymap">
+            <div class="col-12" id="mymap">
               <img class="img-fluid d-block" src="https://pingendo.com/assets/photos/wireframe/photo-1.jpg"> </div>
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-6">
                 <div id="carousel" class="carousel slide" data-ride="carousel">
                   <div class="carousel-inner">
                     <div class="carousel-item active">
@@ -80,19 +80,19 @@
                   <a class="carousel-control-next" href="#carousel" role="button" data-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span> </a>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-6">
                 <div class="row">
-                  <div class="col-md-12">
+                  <div class="col-12">
                     <h1 class="" id="selected_heading">Heading</h1>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-12">
+                  <div class="col-12">
                     <p class="" id="selected_paragraph">Paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-12">
+                  <div class="col-12">
                     <ul class="" id="selected_list">
                       <li>One</li>
                       <li>Two</li>
@@ -112,48 +112,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
     <script src="javascripts/p5year.js"></script>
 
-    <script>
-      // var mymap = L.map('map').fitWorld();
-  
-      var mymap = L.map('mymap').setView([37.188126, -3.621803], 15);
-  
-      var marker = L.marker([37.188126, -3.621803]).addTo(mymap);
-  
-      marker.bindPopup("<b>Hello world!</b><br>I was born on 19th february 1979 in La Chana, Granada. My parents were Francisco and Ascensión").openPopup();
-  
-      L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-          attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-          maxZoom: 18,
-          id: 'mapbox.high-contrast',
-          accessToken: 'pk.eyJ1Ijoia2lrZXJhbWlyZXoiLCJhIjoiY2pldDd1cHYzNXZhbTJxbXF6c3E5eGdtNyJ9.qXwl5fhi0BH2bUOD8POfzg'
-      }).addTo(mymap);
-  
-      // function onMapClick(e) {
-      //     // alert("You clicked the map at " + e.latlng);
-      //     mymap.flyTo([Math.random() * 50.0, Math.random() * 20]);
-      // }
-  
-      // mymap.on('click', onMapClick);
-  
-      // mymap.locate({setView: true, maxZoom: 16});
-  
-      function onLocationFound(e) {
-          var radius = e.accuracy / 2;
-  
-          L.marker(e.latlng).addTo(mymap)
-              .bindPopup("You are within " + radius + " meters from this point").openPopup();
-  
-          L.circle(e.latlng, radius).addTo(mymap);
-      }
-  
-      mymap.on('locationfound', onLocationFound);
-  
-      function onLocationError(e) {
-          alert(e.message);
-      }
-  
-      mymap.on('locationerror', onLocationError);
-    </script>
+    <script src="javascripts/leafletMap.js"></script>
+
   </div>
 </body>
 

@@ -14,7 +14,7 @@ function setup() {
   cnv.parent('year_panel');
 
   // Create objects
-  for (var i=1979; i<2019; i++) {
+  for (var i=1900; i<2050; i++) {
     bugs.push(new Year(i));
   }
 }
@@ -22,7 +22,7 @@ function setup() {
 function draw() {
   background(0);
   for (var i=0; i<bugs.length; i++) {
-    bugs[i].move();
+    bugs[i].update();
     bugs[i].display();
   }
 }
@@ -34,69 +34,107 @@ function updateSize() {
 }
 
 function mouseWheel(event) {
-  print(event.delta);
   //move the square according to the vertical scroll amount
-  pos += event.delta;
+  pos += event.delta/100.0;
   //uncomment to block page scrolling
   //return false;
 }
 
-window.onload = function() {
+window.addEventListener("load", function(event) {
   element = document.getElementById('year_panel')
   style = window.getComputedStyle(element);
 
   divHeight = style.height;
   divWidth = style.width;
+
   resizeCanvas(int(divWidth), int(divHeight));
   updateSize();
+});
 
-}
 
-window.onresize = function() {
+window.addEventListener("resize", function(event) {
 
   element = document.getElementById('year_panel')
   style = window.getComputedStyle(element);
 
   divHeight = style.height;
   divWidth = style.width;
+
   resizeCanvas(int(divWidth), int(divHeight));
   updateSize();
-};
+
+});
 
 // Year class
 function Year(i_) {
+
   this.x = 0;
-  this.y = (i_ - 1979) * (int(divHeight)/30);
+  this.y = (i_ - 1900) * (int(divHeight)/40.0);
   this.speed = 1;
   this.year = i_;
-
-  this.move = function() {
-
-  };
+  this.width = int(divWidth)-1;
+  this.height = int(divHeight)/40.0;
+  this.size = this.height * 0.6;
+  this.selected = false;
+  this.rotation = radians(0);
+  this.offsetmax = -0.25 * this.width
+  this.offsetx = this.offsetmax;
+  this.marginmax = this.height * 0.3;
+  this.margin = this.marginmax;
+  this.scalemin = 0.5;
+  this.scale = this.scalemin;
 
   this.update = function() {
-    if (int(divHeight) > int(divWidth)) {
-      this.x = 0;
-      this.y = (i_ + pos - 1979) * (int(divHeight)/30);
-      this.width = int(divWidth)-1;
-      this.height = int(divHeight)/30;
-    
+
+    this.x = 0;
+    this.y = (i_ + pos - 1900.0) * (int(divHeight)/40.0 + this.margin);
+    this.width = int(divWidth)-1;
+    this.height = int(divHeight)/40.0;
+    this.size = this.width * 0.2;
+
+    if (this.size > this.height * 0.7) this.size = this.height * 0.7;
+
+    if (abs(this.y-windowHeight*0.5) < this.height * 0.5) this.selected = true;
+    else this.selected = false;
+
+    if (abs(this.y-windowHeight*0.5) < this.height * 0.5 * 15) {
+      
+      var dist = map(abs(this.y-windowHeight*0.5), 0, this.height * 0.5 * 15, 0.0, 1.0);
+
+      this.offsetx = pow(dist, 2) * this.offsetmax;
+      this.scale = this.scalemin + 0.5 * pow((1 - dist), 2);
+
     }
+
     else {
-      this.x = (i_ - 1979) * (int(divWidth)/30);
-      this.y = 0
-      this.width = int(divWidth)/30;
-      this.height = int(divHeight)-1;
-    
+
+      this.offsetx = this.offsetmax;
+      this.scale = this.scalemin;
+
     }
+
   }
 
   this.display = function() {
-    noFill();
-    stroke(255);
-    rect(this.x, this.y, this.width, this.height);
-    textAlign(CENTER,CENTER);
-    textSize(this.height * 0.8);
-    text(this.year, this.x,this.y, this.width, this.height);
+
+
+    if (this.selected) {
+      fill(255);
+      stroke(0);
+    }
+    else {
+      noFill();
+      stroke(255);
+    }
+    textAlign(RIGHT,CENTER);
+    textSize(this.size * this.scale);
+
+    push();
+    translate(this.x + this.offsetx, this.y);
+    rotate(this.rotation);
+    rect(0, 0, this.scale * this.width, this.scale * this.height);
+    text(this.year + " ", 0, 0, this.scale * this.width, this.scale * this.height);
+    pop();
+
   };
 }
