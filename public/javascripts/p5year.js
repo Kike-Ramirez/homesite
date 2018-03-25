@@ -5,6 +5,7 @@ var style = window.getComputedStyle(element);
 var divHeight = style.height;
 var divWidth = style.width;
 var pos = 0;
+var touchIni, touchEnd;
 
 function setup() {
 
@@ -14,9 +15,13 @@ function setup() {
   cnv.parent('year_panel');
 
   // Create objects
-  for (var i=1900; i<2050; i++) {
+  for (var i=1900; i<1940; i++) {
     bugs.push(new Year(i));
   }
+
+  touchIni = 0;
+  touchEnd = 0;
+
 }
 
 function draw() {
@@ -25,6 +30,12 @@ function draw() {
     bugs[i].update();
     bugs[i].display();
   }
+
+  fill(255,0,0);
+  noStroke();
+  textSize(20);
+  textAlign(LEFT, CENTER);
+  text(int(frameRate()*100)/100.0, 80, 10);
 }
 
 function updateSize() {
@@ -33,11 +44,15 @@ function updateSize() {
   }  
 }
 
-function mouseWheel(event) {
-  //move the square according to the vertical scroll amount
-  pos += event.delta/100.0;
-  //uncomment to block page scrolling
-  //return false;
+function touchMoved(event) {
+  
+  if (event.screenX <= 0.15 * windowWidth) {
+
+    pos += event.movementY / 100.0;
+    // prevent default
+    return false;
+  
+  }
 }
 
 window.addEventListener("load", function(event) {
