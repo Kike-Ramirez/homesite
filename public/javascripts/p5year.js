@@ -22,6 +22,8 @@ function setup() {
   touchIni = 0;
   touchEnd = 0;
 
+  textFont("Montserrat");
+
 }
 
 function draw() {
