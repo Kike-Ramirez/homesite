@@ -4,7 +4,7 @@ var style = window.getComputedStyle(element);
 
 var divHeight = style.height;
 var divWidth = style.width;
-var pos = 0;
+var pos = -40;
 var touchIni, touchEnd;
 
 function setup() {
@@ -15,7 +15,7 @@ function setup() {
   cnv.parent('year_panel');
 
   // Create objects
-  for (var i=1900; i<1940; i++) {
+  for (var i=1970; i<2030; i++) {
     bugs.push(new Year(i));
   }
 
@@ -49,6 +49,11 @@ function touchMoved(event) {
   if (event.screenX <= 0.15 * windowWidth) {
 
     pos += event.movementY / 100.0;
+
+    console.log(pos);
+
+    if (pos >= 0) pos = 0;
+    if (pos <= -41) pos = -41;
     // prevent default
     return false;
   
@@ -84,11 +89,11 @@ window.addEventListener("resize", function(event) {
 function Year(i_) {
 
   this.x = 0;
-  this.y = (i_ - 1900) * (int(divHeight)/40.0);
+  this.y = (i_ - 1970) * (int(divHeight)/22.0);
   this.speed = 1;
   this.year = i_;
   this.width = int(divWidth)-1;
-  this.height = int(divHeight)/40.0;
+  this.height = int(divHeight)/22.0;
   this.size = this.height * 0.6;
   this.selected = false;
   this.rotation = radians(0);
@@ -102,9 +107,9 @@ function Year(i_) {
   this.update = function() {
 
     this.x = 0;
-    this.y = (i_ + pos - 1900.0) * (int(divHeight)/40.0 + this.margin);
+    this.y = (i_ + pos - 1970.0) * (int(divHeight)/22.0 + this.margin);
     this.width = int(divWidth)-1;
-    this.height = int(divHeight)/40.0;
+    this.height = int(divHeight)/22.0;
     this.size = this.width * 0.2;
 
     if (this.size > this.height * 0.7) this.size = this.height * 0.7;
@@ -144,12 +149,14 @@ function Year(i_) {
     textAlign(RIGHT,CENTER);
     textSize(this.size * this.scale);
 
-    push();
-    translate(this.x + this.offsetx, this.y);
-    rotate(this.rotation);
-    rect(0, 0, this.scale * this.width, this.scale * this.height);
-    text(this.year + " ", 0, 0, this.scale * this.width, this.scale * this.height);
-    pop();
+    if ((this.y >= 0) && (this.y <= windowHeight)) {
+      push();
+      translate(this.x + this.offsetx, this.y);
+      rotate(this.rotation);
+      rect(0, 0, this.scale * this.width, this.scale * this.height);
+      text(this.year + " ", 0, 0, this.scale * this.width, this.scale * this.height);
+      pop();
+    }
 
   };
 }
