@@ -46,20 +46,15 @@ function updateSize() {
   }  
 }
 
-function touchMoved(event) {
-  
-  if (event.screenX <= 0.15 * windowWidth) {
+function touchMoved() {
 
-    pos += event.movementY / 100.0;
-
-    console.log(pos);
-
-    if (pos >= 0) pos = 0;
-    if (pos <= -41) pos = -41;
-    // prevent default
-    return false;
+  if (mouseX < width) {
+    pos += (mouseY - pmouseY) / 100.0;
   
   }
+  
+  return false;
+  
 }
 
 window.addEventListener("load", function(event) {
